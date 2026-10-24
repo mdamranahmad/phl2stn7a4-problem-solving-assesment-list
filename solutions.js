@@ -572,7 +572,6 @@ nums:  [ 0, 0, 1 ]
 Output:  [ 1, 0, 0 ]
  */
 
-
 // Problem 15: Merge Sorted Array
 // Problem Description
 // You are given two integer arrays, nums1 and nums2, sorted in non-decreasing order, along with two integers m and n.
@@ -582,7 +581,7 @@ Output:  [ 1, 0, 0 ]
 // The merge must be performed directly in nums1. Do not return a separate merged array.
 // Important: The zeros reserved at the end of nums1 are empty positions, not necessarily actual input values.
 
-// Solution-15: 
+// Solution-15:
 var merge = (nums1, m, nums2, n) => {
     for (let i = m; i < nums1.length; i++) {
         nums1[i] = nums2.shift();
@@ -600,12 +599,10 @@ var merge = (nums1, m, nums2, n) => {
 // var nums2 = []
 // var n = 0
 
-var nums1 = [0]
-var m = 0
-var nums2 = [1]
-var n = 1
-
-
+var nums1 = [0];
+var m = 0;
+var nums2 = [1];
+var n = 1;
 
 console.log("nums1: ", nums1);
 console.log("nums2: ", nums2);
@@ -632,3 +629,119 @@ nums2:  [ 1 ]
 Output- nums1:  [ 1 ]
 Output- nums2:  []
  */
+
+// Problem 16: 3Sum
+// Problem Description
+// Given an integer array nums, find all unique triplets [nums[i], nums[j], nums[k]] such that the indices are distinct and the sum of the three corresponding values is zero.
+// Formally:
+// [
+// nums[i] + nums[j] + nums[k] = 0
+// ]
+// Your solution must satisfy the following requirements:
+// Each triplet must contain three elements whose sum is exactly zero.
+// The same array element cannot be used more than once in a single triplet.
+// The result must not contain duplicate triplets, even if the input contains repeated values.
+// The order of the triplets in the final result does not matter.
+// Return an array containing all valid unique triplets. If no valid triplets exist, return an empty array.
+
+// Solution-16:
+
+var threeSum = (nums) => {
+    var finalArr = [];
+    nums.forEach((fv, fvInd) => {
+        nums.forEach((sv, svInd) => {
+            if (fvInd !== svInd) {
+                nums.forEach((tv, tvInd) => {
+                    if (tvInd !== svInd && tvInd !== fvInd) {
+                        if (fv + sv + tv === 0) {
+                            if (finalArr.length === 0) {
+                                finalArr.push([fv, sv, tv]);
+                            } else {
+                                var isDuplicate = finalArr.some((arr) => {
+                                    return [fv, sv, tv].every((val) =>
+                                        arr.includes(val),
+                                    );
+                                });
+                                if (!isDuplicate) {
+                                    finalArr.push([fv, sv, tv]);
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    return finalArr;
+};
+
+// var nums = [-1, 0, 1, 2, -1, -4];
+// var nums = [0, 1, 1]
+var nums = [0, 0, 0];
+
+var summedArr = threeSum(nums);
+
+console.log("nums: ", nums);
+console.log("Output: ", summedArr);
+
+// Output-16:
+/**
+nums:  [ -1, 0, 1, 2, -1, -4 ]
+Output:  [ [ -1, 0, 1 ], [ -1, 2, -1 ] ]
+
+nums:  [ 0, 1, 1 ]
+Output:  []
+
+nums:  [ 0, 0, 0 ]
+Output:  [ [ 0, 0, 0 ] ]
+ */
+
+// Problem 17: Plus One
+// Problem Description
+// You are given a non-empty array of digits representing a non-negative integer.
+// Each element contains a single digit, and the digits are arranged from the most significant digit to the least significant digit. The integer does not contain leading zeros, except when the number itself is zero.
+// Increment the represented integer by one and return the resulting array of digits.
+// You must correctly handle carry propagation. For example, adding one to a number ending in 9 may require carrying into the preceding digit. If every digit is 9, the resulting array will contain one additional digit.
+
+// Solution-17:
+var plusOne = (digits) => {
+    var carryFun = (num) => {
+        return { incDig: (num + 1) % 10, carry: Math.floor((num + 1) / 10) };
+    };
+    let carryProp;
+    for (let i = digits.length - 1; i >= 0; i--) {
+        carryProp = carryFun(digits[i]);
+        digits[i] = carryProp.incDig;
+
+        if (carryProp.carry === 0) break;
+    }
+
+    if (carryProp.carry) {
+        digits.unshift(carryProp.carry);
+    }
+
+    return digits;
+};
+
+// var digits = [1, 2, 9];
+var digits = [9, 9, 9];
+// var digits = [4, 3, 2, 1];
+
+console.log("digits: ", digits);
+
+var output = plusOne(digits);
+
+console.log("output: ", output);
+
+// Output-17:
+/*
+digits:  [ 1, 2, 9 ]
+output:  [ 1, 3, 0 ]
+
+digits:  [ 4, 3, 2, 1 ]
+output:  [ 4, 3, 2, 2 ]
+
+digits:  [ 9, 9, 9 ]
+output:  [ 1, 0, 0, 0 ]
+*/
