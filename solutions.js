@@ -408,3 +408,227 @@ nums:  [ 1, 1, 1, 1, 1 ]
 output:  [ 1, 2, 3, 4, 5 ]
 
  */
+
+// Problem 11: Richest Customer Wealth
+// Problem Description
+// You are given a two-dimensional array called accounts, where each row represents a customer and each element in that row represents the amount of money the customer holds in a particular bank account.
+// The total wealth of a customer is the sum of all values in their row.
+// Your task is to calculate the total wealth of every customer and return the maximum total wealth found.
+// Assume that all customers have the same number of bank accounts.
+
+// Solution-11:
+
+var maximumWealth = (accounts) => {
+    var wealthSumArr = accounts.map((account) => {
+        return account.reduce((a, b) => a + b, 0);
+    });
+    return wealthSumArr.reduce((a, b) => {
+        return b > a ? (a = b) : a;
+    }, 0);
+};
+
+// var accounts = [
+//     [1, 2, 3],
+//     [3, 2, 1],
+// ];
+
+var accounts = [
+    [1, 5],
+    [7, 3],
+    [3, 5],
+];
+
+var output = maximumWealth(accounts);
+
+console.log("accounts: ", accounts);
+console.log("output: ", output);
+
+// Output-11:
+/**
+accounts:  [ [ 1, 2, 3 ], [ 3, 2, 1 ] ]
+output:  6
+
+accounts:  [ [ 1, 5 ], [ 7, 3 ], [ 3, 5 ] ]
+output:  10
+ */
+
+// Problem 12: Remove Duplicates from Sorted Array
+// Problem Description
+// Given an integer array nums sorted in non-decreasing order, remove duplicate values in-place so that each unique value appears exactly once.
+// The relative order of the unique elements must remain unchanged.
+// After removing duplicates, return the number of unique elements, k. The first k positions of nums must contain the unique elements in sorted order.
+// You must modify the original array without creating another array to store the unique values.
+// The contents of nums beyond index k - 1 do not matter.
+
+// Solution-12:
+var removeDuplicates = (nums) => {
+    nums.forEach((value, i) => {
+        nums.forEach((val, j) => {
+            if (j > i && value === val) {
+                nums.splice(j, 1);
+                removeDuplicates(nums);
+            }
+        });
+    });
+};
+
+var nums = [1, 1, 2];
+// var nums = [0, 0, 1, 1, 1, 2, 2, 2, 2, 3, 3, 4];
+console.log("nums: ", nums);
+
+removeDuplicates(nums);
+console.log("output: ", nums.length);
+console.log("Sorted: ", nums);
+
+// Output-12:
+/*
+nums:  [ 1, 1, 2 ]
+output:  2
+Sorted:  [ 1, 2 ]
+
+nums:  [
+  0, 0, 1, 1, 1,
+  2, 2, 2, 2, 3,
+  3, 4
+]
+output:  5
+Sorted:  [ 0, 1, 2, 3, 4 ]
+*/
+
+// Problem 13: Contains Duplicate
+// Problem Description
+// Given an integer array nums, determine whether any value appears at least twice.
+// Return true if the array contains one or more duplicate values. Return false if every element is distinct.
+// Two elements are considered duplicates if they have the same integer value, regardless of their positions in the array.
+
+// Solution-13:
+var containsDuplicate = (nums) => {
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = 0; j < nums.length; j++) {
+            if (j > i && nums[i] === nums[j]) {
+                return true;
+            }
+        }
+    }
+    return false;
+};
+
+// var nums = [1, 2, 2, 3, 1];
+// var nums = [1, 2, 3, 4];
+var nums = [1, 1, 1, 3, 3, 4, 3, 2, 4, 2];
+
+var hasDuplicate = containsDuplicate(nums);
+
+console.log("nums: ", nums);
+console.log("Output: ", hasDuplicate);
+
+// Output-13:
+/*
+nums:  [ 1, 2, 2, 3, 1 ]
+Output:  true
+
+nums:  [ 1, 2, 3, 4 ]
+Output:  false
+
+nums:  [
+  1, 1, 1, 3, 3,
+  4, 3, 2, 4, 2
+]
+Output:  true
+*/
+
+// Problem 14: Move Zeroes
+// Problem Description
+// Given an integer array nums, move all occurrences of zero to the end of the array while maintaining the relative order of all non-zero elements.
+// You must perform this operation in-place, without creating another array for the result.
+// For example, if the input is [0, 1, 0, 3, 12], the non-zero elements must remain in the order 1, 3, 12, and all zeros must be placed after them.
+// Your function should modify the original array and return nothing.
+
+// Solution-14:
+var moveZeros = (nums) => {
+    var counter = 0;
+    for (let i = 0; i < nums.length; i++) {
+        counter++;
+        if (counter < nums.length && nums[i] === 0) {
+            var removednum = nums.splice(i, 1);
+            nums.push(removednum.pop());
+            i--;
+        }
+    }
+};
+
+// var nums = [0, 1, 0, 3, 12];
+var nums = [0, 0, 1];
+console.log("nums: ", nums);
+moveZeros(nums);
+console.log("Output: ", nums);
+
+// Output-14:
+/**
+nums:  [ 0, 1, 0, 3, 12 ]
+Output:  [ 1, 3, 12, 0, 0 ]
+
+nums:  [ 0, 0, 1 ]
+Output:  [ 1, 0, 0 ]
+ */
+
+
+// Problem 15: Merge Sorted Array
+// Problem Description
+// You are given two integer arrays, nums1 and nums2, sorted in non-decreasing order, along with two integers m and n.
+// nums1 has a total length of m + n. Its first m positions contain valid elements, while the remaining n positions are initialized to zero and reserved for the merged result.
+// nums2 contains exactly n valid elements.
+// Merge the elements of nums2 into nums1 so that the final array contains all m + n elements in non-decreasing order.
+// The merge must be performed directly in nums1. Do not return a separate merged array.
+// Important: The zeros reserved at the end of nums1 are empty positions, not necessarily actual input values.
+
+// Solution-15: 
+var merge = (nums1, m, nums2, n) => {
+    for (let i = m; i < nums1.length; i++) {
+        nums1[i] = nums2.shift();
+    }
+    nums1.sort();
+};
+
+// var nums1 = [1, 2, 3, 0, 0, 0];
+// var m = 3;
+// var nums2 = [2, 5, 6];
+// var n = 3;
+
+// var nums1 = [1]
+// var m = 1
+// var nums2 = []
+// var n = 0
+
+var nums1 = [0]
+var m = 0
+var nums2 = [1]
+var n = 1
+
+
+
+console.log("nums1: ", nums1);
+console.log("nums2: ", nums2);
+
+merge(nums1, m, nums2, n);
+
+console.log("Output- nums1: ", nums1);
+console.log("Output- nums2: ", nums2);
+
+// Output-15:
+/**
+nums1:  [ 1, 2, 3, 0, 0, 0 ]
+nums2:  [ 2, 5, 6 ]
+Output- nums1:  [ 1, 2, 2, 3, 5, 6 ]
+Output- nums2:  []
+
+nums1:  [ 1 ]
+nums2:  []
+Output- nums1:  [ 1 ]
+Output- nums2:  []
+
+nums1:  [ 0 ]
+nums2:  [ 1 ]
+Output- nums1:  [ 1 ]
+Output- nums2:  []
+ */
