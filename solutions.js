@@ -745,3 +745,89 @@ output:  [ 4, 3, 2, 2 ]
 digits:  [ 9, 9, 9 ]
 output:  [ 1, 0, 0, 0 ]
 */
+
+// Problem 18: Reverse String
+// Problem Description
+// You are given an array of characters s. Reverse the order of the characters in the array.
+// The reversal must be performed in-place, meaning you must modify the original array without creating another array to hold the reversed characters.
+// The function should return nothing. After the function executes, the original array must contain the characters in reverse order.
+// Consider using two pointers: one starting at the beginning of the array and another at the end.
+
+// Solution-18:
+var reverseString = (s) => {
+    var count = s.length - 1;
+    for (let i = 0; i < s.length; i++) {
+        if (count >= i) {
+            s.splice(i, 0, s[count]);
+            s.splice(count, 1, s.splice(i + 1, 1).pop());
+            count--;
+        }
+    }
+
+    return s;
+};
+
+// var s = ["h", "e", "l", "l", "o"];
+// var s = ["H", "a", "n", "n", "a", "h"];
+var s = ["P", "r", "o", "g", "r", "a", "m", "M", "i", "n", "g"];
+
+console.log("s: ", s);
+
+reverseString(s);
+
+console.log("Output: ", s);
+
+// Output-18:
+/**
+s:  [ 'h', 'e', 'l', 'l', 'o' ]
+Output:  [ 'o', 'l', 'l', 'e', 'h' ]
+
+s:  [ 'H', 'a', 'n', 'n', 'a', 'h' ]
+Output:  [ 'h', 'a', 'n', 'n', 'a', 'H' ]
+
+s:  [
+  'P', 'r', 'o', 'g',
+  'r', 'a', 'm', 'M',
+  'i', 'n', 'g'
+]
+Output:  [
+  'g', 'n', 'i', 'M',
+  'm', 'a', 'r', 'g',
+  'o', 'r', 'P'
+]
+ */
+
+// Problem 19: Length of Last Word
+// Problem Description
+// Given a string s consisting of words and spaces, return the length of the last word in the string.
+// A word is defined as a maximal sequence of non-space characters. Words are separated by one or more spaces.
+// The string may contain leading spaces, trailing spaces, or multiple consecutive spaces between words. These spaces must not affect the length of the last word.
+// Your function should return the number of characters in the final word, excluding any surrounding spaces.
+
+// Solution-19:
+var lengthOfLastWord = (s) => {
+    var arr = s.trim().split(" ");
+
+    return arr[arr.length - 1].length;
+};
+
+// var s = "Hello World"
+// var s = "   fly me   to   the moon  ";
+var s = "luffy is still joyboy";
+
+var output = lengthOfLastWord(s);
+
+console.log("s: ", s);
+console.log("Output: ", output);
+
+// Output-19:
+/**
+s:     fly me   to   the moon
+Output:  4
+
+s:  Hello World
+Output:  5
+
+s:  luffy is still joyboy
+Output:  6
+ */
