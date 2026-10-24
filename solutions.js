@@ -241,11 +241,170 @@ var sumArr = positiveSum(arrNum);
 console.log("arrNum: ", arrNum);
 console.log("sumArr: ", sumArr);
 
-// Output-07:
+// Output-06:
 /**
 arrNum:  [ 1, -4, 7, 12 ]
 sumArr:  20
 
 arrNum:  [ -1, -2, 0, -5 ]
 sumArr:  0
+ */
+
+// Problem 7: Grasshopper — Summation
+// Problem Description
+// Given a positive integer num, calculate the sum of all integers from 1 through num, inclusive.
+// For example, when num = 4, the required sum is:
+// [
+// 1 + 2 + 3 + 4 = 10
+// ]
+// Return the calculated sum as an integer.
+// Consider an iterative solution and the mathematical formula for the sum of consecutive positive integers.
+
+// Solution-07:
+var summation = (num) => {
+    if (num < 0) return "Negative integer given!";
+    let sum = 0;
+    for (let i = 0; i <= num; i++) {
+        sum += i;
+    }
+
+    return sum;
+};
+
+// var num = 5;
+// var num = 8;
+var num = 1;
+
+var sumNum = summation(num);
+
+console.log("num: ", num, " sumNum: ", sumNum);
+
+// Output-07:
+/**
+ * num:  8  sumNum:  36
+ * num:  1  sumNum:  1
+ */
+
+// Problem 8: Convert a Boolean to a String
+// Problem Description
+// Given a Boolean value b, convert it into its corresponding string representation.
+// If b is true, return the string "true". If b is false, return the string "false".
+// The return value must be a string, not a Boolean.
+
+// Solution-08:
+
+var booleanToString = (b) => {
+    if (b) {
+        return "true";
+    } else return "false";
+};
+
+var str01 = booleanToString(true);
+var str02 = booleanToString(false);
+
+console.log("str01: ", str01, " typeof: ", typeof str01);
+console.log("str02: ", str02, " typeof: ", typeof str02);
+
+// Output-08:
+/*
+str01:  true  typeof:  string
+str02:  false  typeof:  string
+ */
+
+// Problem 9: Fizz Buzz
+// Problem Description
+// Given an integer n, generate a sequence of strings representing the integers from 1 through n.
+// For each integer i, apply the following rules in order:
+// If i is divisible by both 3 and 5, use "FizzBuzz".
+// If i is divisible by 3 only, use "Fizz".
+// If i is divisible by 5 only, use "Buzz".
+// Otherwise, use the decimal string representation of i.
+// Return an array containing exactly n strings in the same order as the integers.
+// Important: Check divisibility by both 3 and 5 before checking either one individually.
+
+// Solution-09:
+var fizzBuzz = (n) => {
+    var arr = [];
+    for (let i = 1; i <= n; i++) {
+        arr.push(
+            !(i % 3) && !(i % 5)
+                ? "FizzBuzz"
+                : !(i % 3)
+                  ? "Fizz"
+                  : !(i % 5)
+                    ? "Buzz"
+                    : `${i}`,
+        );
+    }
+    return arr;
+};
+
+// var n = 5;
+var n = 15;
+
+var output = fizzBuzz(n);
+
+console.log("n: ", n);
+console.log("output: ", output);
+
+// Output-09:
+/**
+n:  5
+output:  [ '1', '2', 'Fizz', '4', 'Buzz' ]
+
+n:  15
+output:  [
+  '1',        '2',
+  'Fizz',     '4',
+  'Buzz',     'Fizz',
+  '7',        '8',
+  'Fizz',     'Buzz',
+  '11',       'Fizz',
+  '13',       '14',
+  'FizzBuzz'
+]
+ */
+
+// Problem 10: Running Sum of 1D Array
+// Problem Description
+// Given an array of integers nums, calculate its running sum.
+// The running sum at index i is the sum of all elements from index 0 through index i, inclusive.
+// Formally:
+// [
+// runningSum[i] = \sum_{j=0}^{i} nums[j]
+// ]
+// Return a new array containing the running sum at every index.
+
+// Solution-10:
+var runningSum = (nums) => {
+    var arr = [];
+    for (let i = 0; i < nums.length; i++) {
+        arr.push(nums.slice(0, i + 1));
+    }
+    return arr.map((values) => {
+        let sum = 0;
+        for (let j = 0; j < values.length; j++) {
+            sum += values[j];
+        }
+        return sum;
+    });
+};
+
+// var nums = [1, 2, 3, 4];
+var nums = [1, 1, 1, 1, 1];
+
+var output = runningSum(nums);
+
+console.log("nums: ", nums);
+console.log("output: ", output);
+
+// Output-10:
+/**
+
+nums:  [ 1, 2, 3, 4 ]
+output:  [ 1, 3, 6, 10 ]
+
+nums:  [ 1, 1, 1, 1, 1 ]
+output:  [ 1, 2, 3, 4, 5 ]
+
  */
