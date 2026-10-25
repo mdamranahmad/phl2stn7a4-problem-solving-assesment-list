@@ -831,3 +831,51 @@ Output:  5
 s:  luffy is still joyboy
 Output:  6
  */
+
+// Problem 20: Longest Common Prefix
+// Problem Description
+// Given an array of strings strs, find the longest common prefix shared by every string in the array.
+// A prefix is a sequence of characters that appears at the beginning of a string. The common prefix must match across all strings, character by character, starting from index zero.
+// If the strings do not share any common starting characters, return an empty string.
+// If the array contains only one string, that entire string is the longest common prefix. If any string is empty, the longest common prefix must also be empty.
+
+// Solution-20:
+var longestCommonPrefix = (strs) => {
+    var ref = strs[0];
+
+    var commonPrefix = "";
+
+    for (let i = 0; i < ref.length; i++) {
+        let isMatched = false;
+        strs.forEach((str) => {
+            ref[i] === str[i] ? (isMatched = true) : (isMatched = false);
+        });
+        if (isMatched) {
+            commonPrefix += ref[i];
+        } else break;
+    }
+
+    return commonPrefix;
+};
+
+// var strs = ["flower", "flow", "flight"];
+// var strs = ["dog", "racecar", "car"];
+var strs = ["interspecies", "interstellar", "interstate"];
+
+var output = longestCommonPrefix(strs);
+
+console.log("strs: ", strs);
+
+console.log("Output: ", output);
+
+// Output-20:
+/*
+strs:  [ 'flower', 'flow', 'flight' ]
+Output:  fl
+
+strs:  [ 'dog', 'racecar', 'car' ]
+Output:
+
+strs:  [ 'interspecies', 'interstellar', 'interstate' ]
+Output:  inters
+*/
